@@ -1,4 +1,4 @@
-# consent-manger-andorid-sample-sdk
+# consent-manager-android-sample-sdk
 
 This repository showcases a sample Android application that consumes Transcend's WebView library.
 
