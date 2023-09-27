@@ -32,6 +32,5 @@ public class MainActivity extends AppCompatActivity {
         );
         zoomOutAnimation.setDuration(3000);
         return zoomOutAnimation;
-
     }
 }
