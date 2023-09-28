@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SampleSDK</string>
+    <string name="transcendConsentUrl">https://cdn.transcend.io/cm/6efb0409-a0f6-4d3c-90dd-0a03f909dd68/airgap.js</string>
 </resources>

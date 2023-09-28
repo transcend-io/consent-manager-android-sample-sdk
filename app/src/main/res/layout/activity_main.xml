@@ -62,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible"
-        app:transcendBundleId= "6efb0409-a0f6-4d3c-90dd-0a03f909dd68"/>
+        app:transcendConsentUrl= "@string/transcendConsentUrl"/>
 
 
 </RelativeLayout>
