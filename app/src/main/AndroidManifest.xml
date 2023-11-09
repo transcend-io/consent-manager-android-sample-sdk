@@ -13,7 +13,7 @@
         android:theme="@style/Theme.SampleSDK"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name="io.transcend.samplesdk.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

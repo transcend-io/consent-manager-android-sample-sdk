@@ -1,4 +1,4 @@
-package com.transcend.samplesdk;
+package io.transcend.samplesdk;
 
 import org.junit.Test;
 

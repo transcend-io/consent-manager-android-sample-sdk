@@ -19,7 +19,7 @@ This repository showcases a sample Android application that consumes Transcend's
 
 ```groovy
 // STEP 1: Add required dependencies
-implementation 'com.transcend.webview:webview:1.0.0'
+implementation 'io.transcend.webview:webview:1.0.0'
 implementation 'androidx.webkit:webkit:1.7.0'
 ```
 ### Step 2:  Create Index.html
@@ -39,7 +39,7 @@ implementation 'androidx.webkit:webkit:1.7.0'
 
 ```xml
 <!-- on activity_main.xml -->
-<com.transcend.webview.TranscendWebView
+<io.transcend.webview.TranscendWebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -48,7 +48,7 @@ implementation 'androidx.webkit:webkit:1.7.0'
 
 ```java
 // Add the following import
-import com.transcend.webview.TranscendWebView;
+import io.transcend.webview.TranscendWebView;
 
 public class MainActivity extends AppCompatActivity {
 	private TranscendWebView webView;

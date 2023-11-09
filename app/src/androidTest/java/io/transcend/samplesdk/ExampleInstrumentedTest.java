@@ -1,4 +1,4 @@
-package com.transcend.samplesdk;
+package io.transcend.samplesdk;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.transcend.samplesdk", appContext.getPackageName());
+        assertEquals("io.transcend.samplesdk", appContext.getPackageName());
     }
 }
