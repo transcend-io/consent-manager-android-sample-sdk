@@ -2,13 +2,10 @@ package io.transcend.samplesdk;
 
 import androidx.appcompat.app.AppCompatActivity;
 import io.transcend.webview.TranscendWebView;
-
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
-
-import io.transcend.samplesdk.R;
 
 public class MainActivity extends AppCompatActivity {
     private TranscendWebView webView;
