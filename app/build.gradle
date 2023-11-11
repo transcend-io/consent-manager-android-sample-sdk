@@ -29,12 +29,11 @@ android {
 }
 
 dependencies {
-
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     // STEP 1: Add required dependencies
-    implementation 'io.transcend.webview:webview:1.0.0'
+    implementation 'io.transcend.webview:WebView:1.0.0-SNAPSHOT'
     implementation 'androidx.webkit:webkit:1.7.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
