@@ -23,7 +23,7 @@ implementation 'io.transcend.webview:webview:1.0.0-SNAPSHOT'
 implementation 'androidx.webkit:webkit:1.7.0'
 ```
 
-### Step 1:  Add Dependencies
+### Step 2:  Add Dependencies
 - Add the following repository on dependencyResolutionManagement in settings.gradle file
 
 ```groovy
