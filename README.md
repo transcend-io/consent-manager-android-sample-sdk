@@ -19,7 +19,7 @@ This repository showcases a sample Android application that consumes Transcend's
 
 ```groovy
 // STEP 1: Add required dependencies
-implementation 'io.transcend.webview:webview:1.0.0-SNAPSHOT'
+implementation 'io.transcend.webview:WebView:1.0.0-SNAPSHOT'
 implementation 'androidx.webkit:webkit:1.7.0'
 ```
 
