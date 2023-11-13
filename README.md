@@ -23,13 +23,13 @@ implementation 'io.transcend.webview:webview:1.0.0-SNAPSHOT'
 implementation 'androidx.webkit:webkit:1.7.0'
 ```
 
-### Step 3:  Add Dependencies
+### Step 1:  Add Dependencies
 - Add the following repository on dependencyResolutionManagement in settings.gradle file
 
 ```groovy
 // STEP 2: Add following repository
 maven {
-            url= "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+ url= "https://s01.oss.sonatype.org/content/repositories/snapshots/"
 }
 ```
 
@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-				//Step 3: Get the webViewbyId and use loadUrl() to show up TCF-UI
-				// Note: on close of TCF-UI the visibilty of this view is set to GONE
+	//Step 3: Get the webViewbyId and use loadUrl() to show up TCF-UI
+	// Note: on close of TCF-UI the visibilty of this view is set to GONE
         webView = (TranscendWebView) findViewById(R.id.webView);
         webView.loadUrl("https://appassets.androidplatform.net/assets/index.html");
 				
