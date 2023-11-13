@@ -19,19 +19,18 @@ This repository showcases a sample Android application that consumes Transcend's
 
 ```groovy
 // STEP 1: Add required dependencies
-implementation 'io.transcend.webview:webview:1.0.0'
+implementation 'io.transcend.webview:webview:1.0.0-SNAPSHOT'
 implementation 'androidx.webkit:webkit:1.7.0'
 ```
-### Step 2:  Create Index.html
-- Create a new assets directory (if it doesn't already exist) at the following location: `src/main`.
-- Generate an `Index.html` file in the designated path: `src/main/assets`, including a code snippet like the one below (*Please note that the source URL will vary for each customer)*.
 
-```html
-<html>
-    <head>
-        <script type="module" src="https://cdn.jsdelivr.net/gh/JonnavithulaGirish/JSAndroidBridge@15bca953ad4879480f09d8f5c5bc7444eb080cc3/bridge.js"></script>
-    </head>
-</html>
+### Step 3:  Add Dependencies
+- Add the following repository on dependencyResolutionManagement in settings.gradle file
+
+```groovy
+// STEP 2: Add following repository
+maven {
+            url= "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+}
 ```
 
 ### Step 3: Use the custom Transcend WebView
