@@ -34,8 +34,6 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     // STEP 1: Add required dependencies
     implementation 'io.transcend.webview:webview:1.0.0-SNAPSHOT'
-    implementation 'io.didomi.sdk:android:1.85.1'
-    implementation 'com.usercentrics.sdk:usercentrics-ui:2.6.0'
     implementation 'androidx.webkit:webkit:1.7.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
