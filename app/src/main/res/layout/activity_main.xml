@@ -49,6 +49,7 @@
             android:inputType="textPassword" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/myButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -56,13 +57,4 @@
             android:backgroundTint="#3333ff"
             android:text="Login" />
     </LinearLayout>
-
-    <io.transcend.webview.TranscendWebView
-        android:id="@+id/webView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible"
-        app:transcendConsentUrl= "@string/transcendConsentUrl"/>
-
-
 </RelativeLayout>
