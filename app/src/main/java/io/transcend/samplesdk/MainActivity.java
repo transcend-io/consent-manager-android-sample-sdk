@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
                     TranscendAPI.getRegimes(getApplicationContext(), new TranscendListener.RegimesListener() {
                         @Override
                         public void onRegimesReceived(Set<String> regimes) {
-                            System.out.println(regimes.toArray()[0]);
+                            System.out.println(regimes.size());
+                            System.out.println(regimes.contains("gdpr"));
                         }
                     });
                 } catch (Exception e) {
