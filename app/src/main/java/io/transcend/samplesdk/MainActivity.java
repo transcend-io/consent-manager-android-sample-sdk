@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import io.transcend.webview.TranscendAPI;
 import io.transcend.webview.TranscendListener;
 import io.transcend.webview.TranscendWebView;
+import io.transcend.webview.models.ConsentStatus;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,19 +26,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ImageView iconImageView = (ImageView) findViewById(R.id.iconImageView);
         iconImageView.startAnimation(getZoomOutAnimation());
-        String url = "https://transcend-cdn.com/cm/a3b53de6-5a46-427a-8fa4-077e4c015f93/airgap.js";
+        String url = "https://transcend-cdn.com/cm-test/63b35d96-a6db-436f-a1cf-ea93ae4be24e/airgap.js";
         webView = TranscendAPI.init(getApplicationContext(), url, new TranscendListener.ViewListener(){
             @Override
             public void onViewReady() {
                 try {
-                    TranscendAPI.getRegimes(getApplicationContext(), new TranscendListener.RegimesListener() {
+                    TranscendAPI.getSdkConsentStatus(getApplicationContext(), "datadog-ios", new TranscendListener.ConsentStatusListener() {
                         @Override
-                        public void onRegimesReceived(Set<String> regimes) {
-                            System.out.println(regimes.toArray()[0]);
+                        public void onStatusReceived(ConsentStatus consentStatus) {
+                            System.out.println(consentStatus.toString());
                         }
                     });
                 } catch (Exception e) {
-                    System.out.println("Found error on getRegimes()");
+                    System.out.println("Found error on getServiceConsentStatus()");
                 }
             }
         });
