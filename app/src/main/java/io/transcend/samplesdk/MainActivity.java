@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ImageView iconImageView = (ImageView) findViewById(R.id.iconImageView);
         iconImageView.startAnimation(getZoomOutAnimation());
-        String url = "https://cdn.dev.trancsend.com/anotherminh/development/cm/66ded8fe-b10f-4f6c-9829-bf277bc28381/airgap.js";
+//      Note: Belongs to Managed Consent Database demo Org
+        String url = "https://transcend-cdn.com/cm/63b35d96-a6db-436f-a1cf-ea93ae4be24e/airgap.js";
         webView = TranscendAPI.init(getApplicationContext(), url, new TranscendListener.ViewListener(){
             @Override
             public void onViewReady() {
