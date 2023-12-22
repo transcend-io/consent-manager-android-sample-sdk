@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import java.util.Set;
 
+import io.transcend.webview.TranscendConstants;
 import io.transcend.webview.models.TrackingConsentDetails;
 import io.transcend.webview.TranscendAPI;
 import io.transcend.webview.TranscendListener;
@@ -18,19 +21,48 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        TranscendWebView  wv= (TranscendWebView) findViewById(R.id.webView);
+        WebView ewv= (WebView) findViewById(R.id.eshopit);
+        ewv.getSettings().setJavaScriptEnabled(true);
+        ewv.getSettings().setDomStorageEnabled(true);
 
-        try {
-            TranscendAPI.getConsent(getApplicationContext(), new TranscendListener.ConsentListener() {
-                @Override
-                public void onConsentReceived(TrackingConsentDetails trackingConsentDetails) {
-                    System.out.println(trackingConsentDetails.getPurposes().get("Analytics"));
+        ewv.loadUrl("https://staging2.theathletic.com/");
+        ewv.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                // Execute JavaScript to update localStorage
+                try {
+                    TranscendAPI.getConsent(getApplicationContext(), new TranscendListener.ConsentListener() {
+                        @Override
+                        public void onConsentReceived(TrackingConsentDetails trackingConsentDetails) {
+                            System.out.println(trackingConsentDetails.getPurposes().get("Analytics"));
+                            try {
+                                TranscendAPI.setConsent(ewv, getApplicationContext(), trackingConsentDetails, new TranscendListener.ConsentStatusUpdateListener() {
+                                    @Override
+                                    public void onConsentStatusUpdate(boolean success, String errorDetails) {
+                                        if (success) {
+                                            ewv.evaluateJavascript(String.format("localStorage.getItem('%s')", TranscendConstants.STORAGE_CONSENT_KEY), result -> {
+                                                System.out.println(result);
+                                            });
+                                            ewv.evaluateJavascript(String.format("localStorage.getItem('%s')", TranscendConstants.STORAGE_TCF_KEY), result -> {
+                                                System.out.println(result);
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+                            catch (Exception ex){
+                                System.out.println("lol"+ ex);
+
+                            }
+                        }
+
+                    });
+                } catch (Exception e) {
+                    System.out.println("Found error on getConsent()");
                 }
-
-            });
-        } catch (Exception e) {
-            System.out.println("Found error on getConsent()");
-        }
+            }
+        });
+        TranscendWebView  wv= (TranscendWebView) findViewById(R.id.webView);
 
         try {
             TranscendAPI.getRegimes(getApplicationContext(), new TranscendListener.RegimesListener() {
