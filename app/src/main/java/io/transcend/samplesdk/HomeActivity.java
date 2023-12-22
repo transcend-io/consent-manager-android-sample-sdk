@@ -25,7 +25,7 @@ public class HomeActivity extends AppCompatActivity {
         ewv.getSettings().setJavaScriptEnabled(true);
         ewv.getSettings().setDomStorageEnabled(true);
 
-        ewv.loadUrl("https://staging2.theathletic.com/");
+        ewv.loadUrl("https://eshopit.co/");
         ewv.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
