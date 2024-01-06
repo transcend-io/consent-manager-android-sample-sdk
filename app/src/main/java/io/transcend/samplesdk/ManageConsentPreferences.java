@@ -68,4 +68,21 @@ public class ManageConsentPreferences extends AppCompatActivity {
             System.out.println("Found error on getConsent()");
         }
     }
+
+
+    private void getAndLogConsent() {
+        try {
+            TranscendAPI.getConsent(getApplicationContext(), new TranscendListener.ConsentListener() {
+                 @Override
+                    public void onConsentReceived(TrackingConsentDetails consentDetails) {
+                        System.out.println("getConsent().isConfirmed(): " + consentDetails.isConfirmed());
+                        System.out.println("getConsent().getPurposes():" + consentDetails.getPurposes());
+                        System.out.println("SharedPreferences: " + androidx.preference.PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(TranscendConstants.TRANSCEND_CONSENT_DATA, "lol"));
+                        System.out.println("GDPR_APPLIES from SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(IABConstants.IAB_TCF_GDPR_APPLIES, 100));
+                    }
+                });
+            } catch (Exception e) {
+                System.out.println("getConsent error" + e);
+            }
+        }
 }

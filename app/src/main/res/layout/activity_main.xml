@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.transcend.samplesdk.MainActivity">
-
-    <View
-        android:id="@+id/emptyView"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"/>
+    tools:context="io.transcend.samplesdk.MainActivity"
+    android:orientation="horizontal">
 
     <io.transcend.webview.TranscendWebView
         android:id="@+id/transcendWebView"
@@ -18,60 +14,66 @@
         android:visibility="gone"
         app:transcendConsentUrl= "@string/transcendConsentUrl" />
 
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal"
-        android:layout_below="@+id/emptyView">
-
-        <ImageView
-            android:id="@+id/iconImageView"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:padding="20dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/transcend_logo_main" />
-
-    </LinearLayout>
-
-    <LinearLayout
+        android:id="@+id/contentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <EditText
+        android:visibility="gone"
+        android:orientation="vertical">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="Username"
-            android:backgroundTint="#3333ff"
-            android:inputType="text" />
+            android:layout_height="100dp"
+            android:layout_marginTop="100dp"
+            android:orientation="horizontal">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="Password"
-            android:backgroundTint="#3333ff"
-            android:inputType="textPassword" />
+            <ImageView
+                android:id="@+id/iconImageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/transcend_logo_main" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/Login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:textColor="@color/white"
-            android:backgroundTint="#3333ff"
-            android:text="Login" />
+        </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/manageConsentPreferences"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:backgroundTint="#3333ff"
-            android:text="Manage Consent Preferences"
-            android:textColor="@color/white" />
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Username"
+                android:backgroundTint="#3333ff"
+                android:inputType="text" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Password"
+                android:backgroundTint="#3333ff"
+                android:inputType="textPassword" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/Login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:textColor="@color/white"
+                android:backgroundTint="#3333ff"
+                android:text="Login" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/manageConsentPreferences"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:backgroundTint="#3333ff"
+                android:text="Manage Consent Preferences"
+                android:textColor="@color/white" />
+        </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>
