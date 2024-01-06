@@ -3,18 +3,12 @@ package io.transcend.samplesdk;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-
-import android.os.Handler;
-import android.os.Looper;
-import androidx.preference.PreferenceManager;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import io.transcend.webview.IABConstants;
-import io.transcend.webview.TranscendAPI;
 import io.transcend.webview.TranscendConstants;
-import io.transcend.webview.TranscendWebView;
+
 
 // Mock application page that a user may see after "logging in"
 // This is also a Webview that loads a website with airgap.js running.
@@ -28,7 +22,7 @@ public class HomeActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        WebView ewv = (WebView) findViewById(R.id.appWebView);
+        WebView ewv = findViewById(R.id.appWebView);
         ewv.getSettings().setJavaScriptEnabled(true);
         ewv.getSettings().setDomStorageEnabled(true);
         ewv.setWebViewClient(new WebViewClient() {
@@ -39,7 +33,8 @@ public class HomeActivity extends AppCompatActivity {
                 ewv.evaluateJavascript(String.format("localStorage.getItem('%s')", TranscendConstants.STORAGE_TCF_KEY), System.out::println);
             }
         });
+//        ewv.loadUrl("https://staging2.theathletic.com/live-blogs/transfer-news-live-updates-latest/kERVX8vl0Soa/");
+        ewv.loadUrl("https://staging2.theathletic.com");
         ewv.setVisibility(View.VISIBLE);
-        ewv.loadUrl("https://staging2.theathletic.com/live-blogs/transfer-news-live-updates-latest/kERVX8vl0Soa/");
     }
 }

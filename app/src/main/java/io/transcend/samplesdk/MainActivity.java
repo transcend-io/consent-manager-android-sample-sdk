@@ -67,6 +67,21 @@ public class MainActivity extends AppCompatActivity {
         String url = "https://transcend-cdn.com/cm-test/ee571c7f-030a-41b2-affa-70df8a47b57b/airgap.js";
         List<String> domainUrls = new ArrayList<>(Arrays.asList("https://staging2.theathletic.com/"));
         TranscendWebView transcendWebView = (TranscendWebView) findViewById(R.id.transcendWebView);
+        LinearLayout layout = (LinearLayout)findViewById(R.id.contentView);
+
+        transcendWebView.setOnCloseListener(() -> {
+            new Handler(Looper.getMainLooper()).post(() -> {
+                layout.setVisibility(View.VISIBLE);
+                try {
+                    TranscendAPI.getConsent(getApplicationContext(), trackingConsentDetails -> {
+                        System.out.println("In onCloseListener::" + trackingConsentDetails.isConfirmed());
+                    });
+                }
+                catch (Exception ex){
+                    System.out.println("Exception");
+                }
+            });
+        });
 
         TranscendAPI.init(
                 getApplicationContext(),
@@ -89,18 +104,6 @@ public class MainActivity extends AppCompatActivity {
                                         if (regimes.contains("gdpr") && !trackingConsentDetails.isConfirmed()) {
                                             System.out.println("Requesting user consent...");
                                             transcendWebView.setVisibility(View.VISIBLE);
-                                            transcendWebView.setOnCloseListener(() -> {
-                                                new Handler(Looper.getMainLooper()).post(() -> {
-                                                    try {
-                                                        TranscendAPI.getConsent(getApplicationContext(), consentOnClose -> {
-                                                            System.out.println("In onCloseListener::" + consentOnClose.isConfirmed());
-                                                        });
-                                                    }
-                                                    catch (Exception ex){
-                                                        System.out.println("Exception");
-                                                    }
-                                                });
-                                            });
                                         } else {
                                             LinearLayout contentView = findViewById(R.id.contentView);
                                             contentView.setVisibility(View.VISIBLE);
@@ -113,37 +116,12 @@ public class MainActivity extends AppCompatActivity {
 
                             });
 
-                            transcendWebView.setOnCloseListener(() -> {
-                                new Handler(Looper.getMainLooper()).post(() -> {
-                                    try {
-                                        TranscendAPI.getConsent(getApplicationContext(), trackingConsentDetails -> {
-                                            System.out.println("In onCloseListener::" + trackingConsentDetails.isConfirmed());
-                                        });
-                                    }
-                                    catch (Exception ex){
-                                        System.out.println("Exception");
-                                    }
-                                });
-                            });
+
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
                     }
                 }
         );
-    }
-
-    public ScaleAnimation getZoomOutAnimation(){
-        ScaleAnimation zoomOutAnimation = new ScaleAnimation(
-                .7f,
-                1f,
-                .7f,
-                1f,
-                Animation.RELATIVE_TO_SELF,
-                Animation.RELATIVE_TO_SELF
-        );
-        zoomOutAnimation.setDuration(3000);
-        return zoomOutAnimation;
-
     }
 }
