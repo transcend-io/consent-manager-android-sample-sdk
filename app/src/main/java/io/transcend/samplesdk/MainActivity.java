@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         ImageView iconImageView = (ImageView) findViewById(R.id.iconImageView);
         iconImageView.startAnimation(getZoomOutAnimation());
 //      Note: Belongs to Managed Consent Database demo Org
-        String url = "https://transcend-cdn.com/cm-test/63b35d96-a6db-436f-a1cf-ea93ae4be24e/airgap.js";
-        List<String> domainUrls = new ArrayList<>(Arrays.asList("https://eshopit.co/"));
+        String url = "https://transcend-cdn.com/cm-test/ee571c7f-030a-41b2-affa-70df8a47b57b/airgap.js";
+        List<String> domainUrls = new ArrayList<>(Arrays.asList("https://staging2.theathletic.com/"));
         webView = TranscendAPI.init(getApplicationContext(), url,domainUrls, new TranscendListener.ViewListener(){
             @Override
             public void onViewReady() {

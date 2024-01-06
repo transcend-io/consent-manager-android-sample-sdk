@@ -46,7 +46,7 @@ public class HomeActivity extends AppCompatActivity {
                     System.out.println("Exception");
                 }
                 ewv.setVisibility(View.VISIBLE);
-                ewv.loadUrl("https://eshopit.co/");
+                ewv.loadUrl("https://staging2.theathletic.com/live-blogs/transfer-news-live-updates-latest/kERVX8vl0Soa/");
             });
         });
 
@@ -57,13 +57,13 @@ public class HomeActivity extends AppCompatActivity {
                 try {
                     TranscendAPI.getRegimes(getApplicationContext(), regimes -> {
                         System.out.println("regimes size:: " + regimes.size());
-                        if (regimes.contains("GDPR") && !trackingConsentDetails.isConfirmed()) {
+                        if (regimes.contains("gdpr") && !trackingConsentDetails.isConfirmed()) {
                             System.out.println("WebView Alive");
                             wv.setVisibility(View.VISIBLE);
                         }
                         else {
                             ewv.setVisibility(View.VISIBLE);
-                            ewv.loadUrl("https://eshopit.co/");
+                            ewv.loadUrl("https://staging2.theathletic.com/live-blogs/transfer-news-live-updates-latest/kERVX8vl0Soa/");
                         }
                     });
                 } catch (Exception e) {
