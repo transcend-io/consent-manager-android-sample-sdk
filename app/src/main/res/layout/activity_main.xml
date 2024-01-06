@@ -11,6 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"/>
 
+    <io.transcend.webview.TranscendWebView
+        android:id="@+id/transcendWebView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:transcendConsentUrl= "@string/transcendConsentUrl" />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -49,7 +57,7 @@
             android:inputType="textPassword" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/myButton"
+            android:id="@+id/Login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -58,12 +66,12 @@
             android:text="Login" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/myButton1"
+            android:id="@+id/manageConsentPreferences"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:textColor="@color/white"
             android:backgroundTint="#3333ff"
-            android:text="Login" />
+            android:text="Manage Consent Preferences"
+            android:textColor="@color/white" />
     </LinearLayout>
 </RelativeLayout>

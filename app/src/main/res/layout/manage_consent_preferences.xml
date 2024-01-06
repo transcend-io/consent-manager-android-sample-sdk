@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity2">
+    tools:context=".ManageConsentPreferences">
 
-    <WebView
-        android:id = "@+id/eshopit_2"
+    <io.transcend.webview.TranscendWebView
+        android:id="@+id/transcendWebView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </WebView>
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:transcendConsentUrl= "@string/transcendConsentUrl" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
