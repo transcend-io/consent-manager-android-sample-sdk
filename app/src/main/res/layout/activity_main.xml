@@ -48,28 +48,14 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:hint="Username"
-                android:backgroundTint="#3333ff"
-                android:inputType="text" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:hint="Password"
-                android:backgroundTint="#3333ff"
-                android:inputType="textPassword" />
-
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/Login"
+                android:id="@+id/Home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:textColor="@color/white"
                 android:backgroundTint="#3333ff"
-                android:text="Login" />
+                android:text="Home" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/manageConsentPreferences"

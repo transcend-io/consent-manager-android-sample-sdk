@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
+        app:destroyOnClose="false"
         app:transcendConsentUrl= "@string/transcendConsentUrl" />
 
     <LinearLayout
@@ -19,7 +20,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:padding="16dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/changeConsent"

@@ -18,8 +18,6 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("HomeActivity - onCreate");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         WebView ewv = findViewById(R.id.appWebView);

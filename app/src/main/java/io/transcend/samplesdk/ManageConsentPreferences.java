@@ -32,45 +32,6 @@ public class ManageConsentPreferences extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_consent_preferences);
         setUpButtons();
-
-
-//
-//        transcendWebView.setOnCloseListener(() -> {
-//            new Handler(Looper.getMainLooper()).post(() -> {
-//                try {
-//                    TranscendAPI.getConsent(getApplicationContext(), trackingConsentDetails -> {
-//                        System.out.println("In onCloseListener::" + trackingConsentDetails.isConfirmed());
-//                    });
-//                }
-//                catch (Exception ex){
-//                    System.out.println("Exception");
-//                }
-//            });
-//        });
-//
-//        try {
-//            TranscendAPI.getConsent(getApplicationContext(), trackingConsentDetails -> {
-//                System.out.println("isConfirmed:: " + trackingConsentDetails.isConfirmed());
-//                System.out.println("SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(TranscendConstants.TRANSCEND_CONSENT_DATA, "lol"));
-//                System.out.println("GDPR_APPLIES from SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(IABConstants.IAB_TCF_GDPR_APPLIES, 100));
-//
-//                try {
-//                    TranscendAPI.getRegimes(getApplicationContext(), regimes -> {
-//                        System.out.println("regimes size:: " + regimes.size());
-//                        if (regimes.contains("gdpr") && !trackingConsentDetails.isConfirmed()) {
-//                            System.out.println("WebView Alive");
-//                            transcendWebView.setVisibility(View.VISIBLE);
-//                        }
-//                    });
-//                } catch (Exception e) {
-//                    System.out.println("Found error on getRegimes()");
-//                }
-//                System.out.println(trackingConsentDetails.getPurposes().get("Analytics"));
-//
-//            });
-//        } catch (Exception e) {
-//            System.out.println("Found error on getConsent()");
-//        }
     }
 
 
@@ -80,6 +41,7 @@ public class ManageConsentPreferences extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 TranscendWebView transcendWebView = (TranscendWebView) findViewById(R.id.transcendWebView);
+                transcendWebView.reload();
                 transcendWebView.setVisibility(View.VISIBLE);
             }
         });

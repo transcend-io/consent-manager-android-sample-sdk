@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpButtons() {
-        Button button = (Button) findViewById(R.id.Login);
+        Button button = (Button) findViewById(R.id.Home);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
