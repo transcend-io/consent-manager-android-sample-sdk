@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
 
                             });
 
-
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
