@@ -28,6 +28,7 @@ import io.transcend.webview.models.TrackingConsentDetails;
 public class ManageConsentPreferences extends AppCompatActivity {
     FrameLayout webViewContainer;
     Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println("ManageConsentPreferences - onCreate");
@@ -46,9 +47,17 @@ public class ManageConsentPreferences extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 webViewContainer.removeAllViews();
-                TranscendWebView transcendWebView = new TranscendWebView(context, "https://transcend-cdn.com/cm-test/ee571c7f-030a-41b2-affa-70df8a47b57b/airgap.js", (TranscendListener.OnCloseListener) () -> webViewContainer.setVisibility(View.GONE));
+                TranscendWebView transcendWebView = new TranscendWebView(
+                        context,
+                        "https://transcend-cdn.com/cm/63b35d96-a6db-436f-a1cf-ea93ae4be24e/airgap.js",
+                        (TranscendListener.OnCloseListener) () -> webViewContainer.setVisibility(View.GONE));
                 webViewContainer.addView(transcendWebView);
-                webViewContainer.setVisibility(View.VISIBLE);            }
+                webViewContainer.setVisibility(View.VISIBLE);
+
+//                Ideally this would work, but onClose is being called/triggered unnecessarily
+//                TranscendWebView transcendWebView = findViewById(R.id.transcendWebView);
+//                transcendWebView.showConsentManager(null);
+            }
         });
 
         Button manageConsentButton = (Button) findViewById(R.id.logConsent);
@@ -67,8 +76,8 @@ public class ManageConsentPreferences extends AppCompatActivity {
                 public void onConsentReceived(TrackingConsentDetails consentDetails) {
                     System.out.println("getConsent().isConfirmed(): " + consentDetails.isConfirmed());
                     System.out.println("getConsent().getPurposes():" + consentDetails.getPurposes());
-                    System.out.println("SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(TranscendConstants.TRANSCEND_CONSENT_DATA, "lol"));
-                    System.out.println("GDPR_APPLIES from SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(IABConstants.IAB_TCF_GDPR_APPLIES, 100));
+                    System.out.println("SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(TranscendConstants.TRANSCEND_CONSENT_DATA, "null"));
+                    System.out.println("GDPR_APPLIES from SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(IABConstants.IAB_TCF_GDPR_APPLIES, -1));
                 }
             });
         } catch (Exception ex) {
