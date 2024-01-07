@@ -48,8 +48,7 @@ public class ManageConsentPreferences extends AppCompatActivity {
                 webViewContainer.removeAllViews();
                 TranscendWebView transcendWebView = new TranscendWebView(context, "https://transcend-cdn.com/cm-test/ee571c7f-030a-41b2-affa-70df8a47b57b/airgap.js", (TranscendListener.OnCloseListener) () -> webViewContainer.setVisibility(View.GONE));
                 webViewContainer.addView(transcendWebView);
-                webViewContainer.setVisibility(View.VISIBLE);
-            }
+                webViewContainer.setVisibility(View.VISIBLE);            }
         });
 
         Button manageConsentButton = (Button) findViewById(R.id.logConsent);
