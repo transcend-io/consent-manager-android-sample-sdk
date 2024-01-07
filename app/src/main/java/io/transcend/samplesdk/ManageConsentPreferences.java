@@ -3,6 +3,7 @@ package io.transcend.samplesdk;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import com.google.gson.Gson;
 
@@ -24,14 +26,17 @@ import io.transcend.webview.TranscendWebView;
 import io.transcend.webview.models.TrackingConsentDetails;
 
 public class ManageConsentPreferences extends AppCompatActivity {
-
+    FrameLayout webViewContainer;
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println("ManageConsentPreferences - onCreate");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_consent_preferences);
+        webViewContainer = findViewById(R.id.webViewContainer);
         setUpButtons();
+        context = this;
     }
 
 
@@ -40,9 +45,10 @@ public class ManageConsentPreferences extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TranscendWebView transcendWebView = (TranscendWebView) findViewById(R.id.transcendWebView);
-                transcendWebView.showConsentManager(null);
-            }
+                webViewContainer.removeAllViews();
+                TranscendWebView transcendWebView = new TranscendWebView(context, "https://transcend-cdn.com/cm-test/ee571c7f-030a-41b2-affa-70df8a47b57b/airgap.js", (TranscendListener.OnCloseListener) () -> webViewContainer.setVisibility(View.GONE));
+                webViewContainer.addView(transcendWebView);
+                webViewContainer.setVisibility(View.VISIBLE);            }
         });
 
         Button manageConsentButton = (Button) findViewById(R.id.logConsent);
