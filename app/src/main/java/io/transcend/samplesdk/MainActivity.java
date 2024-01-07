@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                                             System.out.println("Requesting user consent...");
                                             transcendWebView.setVisibility(View.VISIBLE);
                                         } else {
+                                            transcendWebView.hideConsentManager();
                                             LinearLayout contentView = findViewById(R.id.contentView);
                                             contentView.setVisibility(View.VISIBLE);
                                         }
