@@ -8,17 +8,9 @@
     android:id="@+id/relativeLayout"
     tools:context=".HomeActivity">
     <WebView
-        android:id = "@+id/eshopit"
+        android:id = "@+id/appWebView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
     </WebView>
-
-    <io.transcend.webview.TranscendWebView
-        android:id="@+id/webView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        app:transcendConsentUrl= "@string/transcendConsentUrl" />
-
 </RelativeLayout>

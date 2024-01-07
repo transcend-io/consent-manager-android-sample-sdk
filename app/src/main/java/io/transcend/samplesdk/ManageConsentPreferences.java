@@ -1,0 +1,87 @@
+package io.transcend.samplesdk;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.FrameLayout;
+
+import com.google.gson.Gson;
+
+import io.transcend.webview.IABConstants;
+import io.transcend.webview.TranscendAPI;
+import io.transcend.webview.TranscendConstants;
+import io.transcend.webview.TranscendListener;
+import io.transcend.webview.TranscendWebView;
+import io.transcend.webview.models.TrackingConsentDetails;
+
+public class ManageConsentPreferences extends AppCompatActivity {
+    FrameLayout webViewContainer;
+    Context context;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("ManageConsentPreferences - onCreate");
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.manage_consent_preferences);
+        webViewContainer = findViewById(R.id.webViewContainer);
+        setUpButtons();
+        context = this;
+    }
+
+
+    private void setUpButtons() {
+        Button button = (Button) findViewById(R.id.changeConsent);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                webViewContainer.removeAllViews();
+                TranscendWebView transcendWebView = new TranscendWebView(
+                        context,
+                        "https://transcend-cdn.com/cm/63b35d96-a6db-436f-a1cf-ea93ae4be24e/airgap.js",
+                        (TranscendListener.OnCloseListener) () -> webViewContainer.setVisibility(View.GONE));
+                webViewContainer.addView(transcendWebView);
+                webViewContainer.setVisibility(View.VISIBLE);
+
+//                Ideally this would work, but onClose is being called/triggered unnecessarily
+//                TranscendWebView transcendWebView = findViewById(R.id.transcendWebView);
+//                transcendWebView.showConsentManager(null);
+            }
+        });
+
+        Button manageConsentButton = (Button) findViewById(R.id.logConsent);
+        manageConsentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getAndLogConsent();
+            }
+        });
+    }
+
+    private void getAndLogConsent() {
+        try {
+            TranscendAPI.getConsent(getApplicationContext(), new TranscendListener.ConsentListener() {
+                @Override
+                public void onConsentReceived(TrackingConsentDetails consentDetails) {
+                    System.out.println("getConsent().isConfirmed(): " + consentDetails.isConfirmed());
+                    System.out.println("getConsent().getPurposes():" + consentDetails.getPurposes());
+                    System.out.println("SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(TranscendConstants.TRANSCEND_CONSENT_DATA, "null"));
+                    System.out.println("GDPR_APPLIES from SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(IABConstants.IAB_TCF_GDPR_APPLIES, -1));
+                }
+            });
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+}
