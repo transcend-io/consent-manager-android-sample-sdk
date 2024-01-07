@@ -41,7 +41,7 @@ public class ManageConsentPreferences extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 TranscendWebView transcendWebView = (TranscendWebView) findViewById(R.id.transcendWebView);
-                transcendWebView.showWebView(null);
+                transcendWebView.showConsentManager(null);
             }
         });
 

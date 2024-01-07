@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                             transcendInitialized = true;
                             System.out.println("Transcend Ready!!!!!!!");
                             TranscendAPI.getConsent(getApplicationContext(), trackingConsentDetails -> {
-                                System.out.println("isConfirmed:: " + trackingConsentDetails.isConfirmed());
+                                System.out.println("isConfirmed: " + trackingConsentDetails.isConfirmed());
                                 System.out.println("SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(TranscendConstants.TRANSCEND_CONSENT_DATA, "lol"));
                                 System.out.println("GDPR_APPLIES from SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(IABConstants.IAB_TCF_GDPR_APPLIES, 100));
 
@@ -112,8 +112,6 @@ public class MainActivity extends AppCompatActivity {
                                 } catch (Exception e) {
                                     System.out.println("Found error on getRegimes()");
                                 }
-                                System.out.println(trackingConsentDetails.getPurposes().get("Analytics"));
-
                             });
 
 
