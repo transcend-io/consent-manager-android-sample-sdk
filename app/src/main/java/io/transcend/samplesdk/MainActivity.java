@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 try {
                                     TranscendAPI.getRegimes(getApplicationContext(), regimes -> {
-                                        System.out.println("regimes size:: " + regimes.size());
+                                        System.out.println("regimes: " + regimes.toString());
                                         if (regimes.contains("gdpr") && !trackingConsentDetails.isConfirmed()) {
                                             System.out.println("Requesting user consent...");
                                             transcendWebView.setVisibility(View.VISIBLE);
