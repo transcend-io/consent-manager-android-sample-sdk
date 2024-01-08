@@ -31,7 +31,6 @@ public class HomeActivity extends AppCompatActivity {
                 ewv.evaluateJavascript(String.format("localStorage.getItem('%s')", TranscendConstants.STORAGE_TCF_KEY), System.out::println);
             }
         });
-//        ewv.loadUrl("https://staging2.theathletic.com/live-blogs/transfer-news-live-updates-latest/kERVX8vl0Soa/");
         ewv.loadUrl("https://staging2.theathletic.com");
         ewv.setVisibility(View.VISIBLE);
     }
