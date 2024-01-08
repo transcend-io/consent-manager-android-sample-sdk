@@ -7,11 +7,14 @@
     tools:context="io.transcend.samplesdk.ManageConsentPreferences"
     android:orientation="horizontal">
 
-    <FrameLayout
-        android:id="@+id/webViewContainer"
+    <io.transcend.webview.TranscendWebView
+        android:id="@+id/transcendWebView"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:visibility="gone"
-        android:layout_height="match_parent"/>
+        app:destroyOnClose="false"
+        app:transcendConsentUrl= "@string/transcendConsentUrl" />
+
 
     <LinearLayout
         android:id="@+id/manageConsentPreferencesView"
