@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
     private void setUpTranscendWebView() {
         // Note: Belongs to Managed Consent Database demo Org
         String url = "https://transcend-cdn.com/cm/63b35d96-a6db-436f-a1cf-ea93ae4be24e/airgap.js";
-        List<String> domainUrls = new ArrayList<>(Arrays.asList("https://staging2.theathletic.com/"));
+        // Any additional domains you'd like to sync consent data to
+        List<String> domainUrls = new ArrayList<>(Arrays.asList("https://example.com/"));
         TranscendWebView transcendWebView = (TranscendWebView) findViewById(R.id.transcendWebView);
         LinearLayout layout = (LinearLayout)findViewById(R.id.contentView);
 

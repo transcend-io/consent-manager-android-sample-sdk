@@ -26,7 +26,7 @@ import io.transcend.webview.TranscendWebView;
 import io.transcend.webview.models.TrackingConsentDetails;
 
 public class ManageConsentPreferences extends AppCompatActivity {
-    FrameLayout webViewContainer;
+//    FrameLayout webViewContainer;
     Context context;
 
     @Override
@@ -35,7 +35,6 @@ public class ManageConsentPreferences extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_consent_preferences);
-        webViewContainer = findViewById(R.id.webViewContainer);
         setUpButtons();
         context = this;
     }
@@ -46,17 +45,8 @@ public class ManageConsentPreferences extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                webViewContainer.removeAllViews();
-                TranscendWebView transcendWebView = new TranscendWebView(
-                        context,
-                        "https://transcend-cdn.com/cm/63b35d96-a6db-436f-a1cf-ea93ae4be24e/airgap.js",
-                        (TranscendListener.OnCloseListener) () -> webViewContainer.setVisibility(View.GONE));
-                webViewContainer.addView(transcendWebView);
-                webViewContainer.setVisibility(View.VISIBLE);
-
-//                Ideally this would work, but onClose is being called/triggered unnecessarily
-//                TranscendWebView transcendWebView = findViewById(R.id.transcendWebView);
-//                transcendWebView.showConsentManager(null);
+                TranscendWebView transcendWebView = findViewById(R.id.transcendWebView);
+                transcendWebView.showConsentManager(null);
             }
         });
 
