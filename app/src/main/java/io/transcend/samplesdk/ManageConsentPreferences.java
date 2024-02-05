@@ -42,7 +42,6 @@ public class ManageConsentPreferences extends AppCompatActivity {
         setContentView(R.layout.manage_consent_preferences);
 
         System.out.println("ManageConsentPreferences - onCreate");
-        // Note: Belongs to Managed Consent Database demo Org
         // Can either create a clone of previous defined config
         // if you need any changes
         // Example: here I want to change the destroy on close behavior to false
