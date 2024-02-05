@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         // Any additional domains you'd like to sync consent data to
         List<String> domainUrls = new ArrayList<>(Arrays.asList("https://example.com/"));
         // User token to sync Data
-        String token = "eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJlbmNyeXB0ZWRJZGVudGlmaWVyIjoiK3dJWXk2SkdmcGxaUUZMWS9ETnQrTUNRS0dISENWckYiLCJpYXQiOjE3MDY5MTA2ODd9.d4zZoMPtriAPwC0HvJ6BqkOGdG_qcPjmRYNNkN_MfLvZDob1OzQcFUbfKFtFZKix";
+        String token = "User_JWT_Token";
         // Specify any default airgap attributes
         Map<String,String> agAttributes = new HashMap<String,String>(){{
             put("data-sync", "on");
