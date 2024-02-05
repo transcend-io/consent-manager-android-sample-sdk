@@ -1,5 +1,3 @@
 <resources>
     <string name="app_name">SampleSDK</string>
-    <!-- Note: Belongs to Managed Consent Database demo Org-->
-    <string name="transcendConsentUrl">https://transcend-cdn.com/cm/63b35d96-a6db-436f-a1cf-ea93ae4be24e/airgap.js</string>
 </resources>

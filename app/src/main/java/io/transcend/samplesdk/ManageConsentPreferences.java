@@ -18,23 +18,44 @@ import android.widget.FrameLayout;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import io.transcend.webview.IABConstants;
 import io.transcend.webview.TranscendAPI;
 import io.transcend.webview.TranscendConstants;
 import io.transcend.webview.TranscendListener;
 import io.transcend.webview.TranscendWebView;
 import io.transcend.webview.models.TrackingConsentDetails;
+import io.transcend.webview.models.TranscendCoreConfig;
 
 public class ManageConsentPreferences extends AppCompatActivity {
-//    FrameLayout webViewContainer;
     Context context;
+    TranscendWebView transcendWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("ManageConsentPreferences - onCreate");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_consent_preferences);
+
+        System.out.println("ManageConsentPreferences - onCreate");
+        // Note: Belongs to Managed Consent Database demo Org
+        // Can either create a clone of previous defined config
+        // if you need any changes
+        // Example: here I want to change the destroy on close behavior to false
+        TranscendCoreConfig config = TranscendAPI.config.clone();
+        config.setDestroyOnClose(false);
+        System.out.println(TranscendAPI.config.getDestroyOnClose());
+        // Or could also directly use same config object created on MainActivity as follows
+        // if no change needed
+        // config = TranscendAPI.config;
+        transcendWebView = (TranscendWebView) findViewById(R.id.transcendWebView1);
+        System.out.println(transcendWebView);
+        transcendWebView.setConfig(config);
+        transcendWebView.loadUrl();
         setUpButtons();
         context = this;
     }
@@ -45,7 +66,7 @@ public class ManageConsentPreferences extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TranscendWebView transcendWebView = findViewById(R.id.transcendWebView);
+                transcendWebView.setVisibility(View.VISIBLE);
                 transcendWebView.showConsentManager(null);
             }
         });

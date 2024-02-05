@@ -8,13 +8,10 @@
     android:orientation="horizontal">
 
     <io.transcend.webview.TranscendWebView
-        android:id="@+id/transcendWebView"
+        android:id="@+id/transcendWebView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        app:destroyOnClose="false"
-        app:transcendConsentUrl= "@string/transcendConsentUrl" />
-
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/manageConsentPreferencesView"
