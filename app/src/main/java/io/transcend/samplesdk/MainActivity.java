@@ -72,13 +72,10 @@ public class MainActivity extends AppCompatActivity {
         // Any additional domains you'd like to sync consent data to
         List<String> domainUrls = new ArrayList<>(Arrays.asList("https://example.com/"));
         // User token to sync Data
-        String token = "User_JWT_Token";
+        String token = "eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJlbmNyeXB0ZWRJZGVudGlmaWVyIjoiK3dJWXk2SkdmcGxaUUZMWS9ETnQrTUNRS0dISENWckYiLCJpYXQiOjE3MDY5MTA2ODd9.d4zZoMPtriAPwC0HvJ6BqkOGdG_qcPjmRYNNkN_MfLvZDob1OzQcFUbfKFtFZKix";
         // Specify any default airgap attributes
         Map<String,String> agAttributes = new HashMap<String,String>(){{
-            put("data-sync", "on");
-            put("data-local-sync", "off");
-            put("data-backend-sync", "on");
-            put("data-report-only","off");
+
         }};
         // Create config Object
         TranscendConfig config = new TranscendConfig(url,
@@ -140,6 +137,24 @@ public class MainActivity extends AppCompatActivity {
                     transcendWebView.hideConsentManager();
                     LinearLayout contentView = findViewById(R.id.contentView);
                     contentView.setVisibility(View.VISIBLE);
+                }
+            });
+        } catch (Exception e) {
+            System.out.println("Found error on getRegimes()");
+        }
+    }
+
+    private void sync(TranscendCoreConfig config){
+        try {
+            TranscendAPI.sync(getApplicationContext(), config.getToken(), new TranscendListener.SyncWithPreferenceStore() {
+                @Override
+                public void onComplete(boolean status,String errorDetails) {
+                    if(errorDetails!=null){
+                        System.out.println("Failed");
+                    }
+                    else{
+                        System.out.println("Done");
+                    }
                 }
             });
         } catch (Exception e) {

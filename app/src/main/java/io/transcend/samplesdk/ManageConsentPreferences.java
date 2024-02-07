@@ -51,7 +51,7 @@ public class ManageConsentPreferences extends AppCompatActivity {
         // Or could also directly use same config object created on MainActivity as follows
         // if no change needed
         // config = TranscendAPI.config;
-        transcendWebView = (TranscendWebView) findViewById(R.id.transcendWebView1);
+        transcendWebView = (TranscendWebView) findViewById(R.id.transcendWebView);
         System.out.println(transcendWebView);
         transcendWebView.setConfig(config);
         transcendWebView.loadUrl();
