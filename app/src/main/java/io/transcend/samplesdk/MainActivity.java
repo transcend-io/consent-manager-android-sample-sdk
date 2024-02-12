@@ -13,15 +13,9 @@ import io.transcend.webview.models.TranscendConfig;
 import io.transcend.webview.models.TranscendCoreConfig;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -29,12 +23,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 // MainActivity is the login page
 public class MainActivity extends AppCompatActivity {
-    private TranscendWebView webView;
-    private boolean transcendInitialized = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,23 +37,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpButtons() {
         Button button = (Button) findViewById(R.id.Home);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Create an Intent to start the SecondActivity
-                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                startActivity(intent);
-            }
+        button.setOnClickListener(view -> {
+            // Create an Intent to start the SecondActivity
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            startActivity(intent);
         });
 
         Button manageConsentButton = (Button) findViewById(R.id.manageConsentPreferences);
-        manageConsentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Create an Intent to start the SecondActivity
-                Intent intent = new Intent(MainActivity.this, ManageConsentPreferences.class);
-                startActivity(intent);
-            }
+        manageConsentButton.setOnClickListener(view -> {
+            // Create an Intent to start the SecondActivity
+            Intent intent = new Intent(MainActivity.this, ManageConsentPreferences.class);
+            startActivity(intent);
         });
     }
 
@@ -87,14 +72,10 @@ public class MainActivity extends AppCompatActivity {
         TranscendWebView transcendWebView = (TranscendWebView) findViewById(R.id.transcendWebView);
         // Set config for element defined on layout
         transcendWebView.setConfig(config);
-        transcendWebView.setOnCloseListener(new TranscendListener.OnCloseListener() {
-            @Override
-            public void onClose(TrackingConsentDetails consentDetails) {
-                System.out.println("In onCloseListener::" + consentDetails.isConfirmed());
-                System.out.println("User Purposes::"+ consentDetails.getPurposes());
-                transcendWebView.setVisibility(View.GONE);
-                layout.setVisibility(View.VISIBLE);
-            }
+        transcendWebView.setOnCloseListener(consentDetails -> {
+            System.out.println("In onCloseListener::" + consentDetails.isConfirmed());
+            System.out.println("User Purposes::"+ consentDetails.getPurposes());
+            layout.setVisibility(View.VISIBLE);
         });
         transcendWebView.loadUrl();
 
@@ -106,13 +87,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onViewReady() {
                         try {
-                            transcendInitialized = true;
                             System.out.println("Transcend Ready!!!!!!!");
                             TranscendAPI.getConsent(getApplicationContext(), trackingConsentDetails -> {
                                 System.out.println("isConfirmed: " + trackingConsentDetails.isConfirmed());
                                 System.out.println("SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(TranscendConstants.TRANSCEND_CONSENT_DATA, "lol"));
                                 System.out.println("GDPR_APPLIES from SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(IABConstants.IAB_TCF_GDPR_APPLIES, 100));
-                                getRegimes(transcendWebView, config, trackingConsentDetails);
+                                fetchRegimesAndHandleUI(transcendWebView, config, trackingConsentDetails);
                             });
                         } catch (Exception e) {
                             throw new RuntimeException(e);
@@ -122,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    private void getRegimes(TranscendWebView transcendWebView, TranscendCoreConfig config, TrackingConsentDetails trackingConsentDetails){
+    private void fetchRegimesAndHandleUI(TranscendWebView transcendWebView, TranscendCoreConfig config, TrackingConsentDetails trackingConsentDetails){
         try {
             TranscendAPI.getRegimes(getApplicationContext(), regimes -> {
                 System.out.println("regimes: " + regimes.toString());
