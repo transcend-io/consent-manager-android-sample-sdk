@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         String token = "eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJlbmNyeXB0ZWRJZGVudGlmaWVyIjoiK3dJWXk2SkdmcGxaUUZMWS9ETnQrTUNRS0dISENWckYiLCJpYXQiOjE3MDY5MTA2ODd9.d4zZoMPtriAPwC0HvJ6BqkOGdG_qcPjmRYNNkN_MfLvZDob1OzQcFUbfKFtFZKix";
         // Specify any default airgap attributes
         Map<String,String> agAttributes = new HashMap<String,String>(){{
-
+            // here
         }};
         // Create config Object
         TranscendConfig config = new TranscendConfig(url,
@@ -87,18 +87,14 @@ public class MainActivity extends AppCompatActivity {
         TranscendWebView transcendWebView = (TranscendWebView) findViewById(R.id.transcendWebView);
         // Set config for element defined on layout
         transcendWebView.setConfig(config);
-        transcendWebView.setOnCloseListener(() -> {
-            new Handler(Looper.getMainLooper()).post(() -> {
+        transcendWebView.setOnCloseListener(new TranscendListener.OnCloseListener() {
+            @Override
+            public void onClose(TrackingConsentDetails consentDetails) {
+                System.out.println("In onCloseListener::" + consentDetails.isConfirmed());
+                System.out.println("User Purposes::"+ consentDetails.getPurposes());
+                transcendWebView.setVisibility(View.GONE);
                 layout.setVisibility(View.VISIBLE);
-                try {
-                    TranscendAPI.getConsent(getApplicationContext(), trackingConsentDetails -> {
-                        System.out.println("In onCloseListener::" + trackingConsentDetails.isConfirmed());
-                    });
-                }
-                catch (Exception ex){
-                    System.out.println("Exception");
-                }
-            });
+            }
         });
         transcendWebView.loadUrl();
 
@@ -137,24 +133,6 @@ public class MainActivity extends AppCompatActivity {
                     transcendWebView.hideConsentManager();
                     LinearLayout contentView = findViewById(R.id.contentView);
                     contentView.setVisibility(View.VISIBLE);
-                }
-            });
-        } catch (Exception e) {
-            System.out.println("Found error on getRegimes()");
-        }
-    }
-
-    private void sync(TranscendCoreConfig config){
-        try {
-            TranscendAPI.sync(getApplicationContext(), config.getToken(), new TranscendListener.SyncWithPreferenceStore() {
-                @Override
-                public void onComplete(boolean status,String errorDetails) {
-                    if(errorDetails!=null){
-                        System.out.println("Failed");
-                    }
-                    else{
-                        System.out.println("Done");
-                    }
                 }
             });
         } catch (Exception e) {
