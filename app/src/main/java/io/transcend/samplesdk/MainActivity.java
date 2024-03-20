@@ -13,11 +13,13 @@ import io.transcend.webview.models.TranscendConfig;
 import io.transcend.webview.models.TranscendCoreConfig;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -63,11 +65,13 @@ public class MainActivity extends AppCompatActivity {
             // here
         }};
         // Create config Object
-        TranscendConfig config = new TranscendConfig(url,
-                true,
-                agAttributes,
-                token,
-                domainUrls);
+        TranscendConfig config = new TranscendConfig.ConfigBuilder(url)
+                .domainUrls(domainUrls)
+                .defaultAttributes(agAttributes)
+                .token(token)
+                .destroyOnClose(false)
+                .autoShowUI(true)
+                .build();
         LinearLayout layout = (LinearLayout)findViewById(R.id.contentView);
         TranscendWebView transcendWebView = (TranscendWebView) findViewById(R.id.transcendWebView);
         // Set config for element defined on layout
