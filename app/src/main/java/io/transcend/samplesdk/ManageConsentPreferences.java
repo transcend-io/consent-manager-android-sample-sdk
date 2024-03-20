@@ -47,7 +47,6 @@ public class ManageConsentPreferences extends AppCompatActivity {
         // Example: here I want to change the destroy on close behavior to false
         TranscendCoreConfig config = TranscendAPI.config.clone();
         config.setDestroyOnClose(false);
-        //config.setAutoShowUI(false);
         // Or could also directly use same config object created on MainActivity as follows
         // if no change needed
         // config = TranscendAPI.config;

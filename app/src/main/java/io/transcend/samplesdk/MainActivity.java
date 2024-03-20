@@ -35,19 +35,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setUpTranscendWebView();
         setUpButtons();
-        System.out.println("========Build Details=========");
-        System.out.println(Build.VERSION.RELEASE);
-        System.out.println(Build.MODEL);
-        System.out.println(Build.MANUFACTURER);
-        System.out.println(Build.BRAND);
-        System.out.println(Build.PRODUCT);
-        System.out.println(Build.HARDWARE);
-        System.out.println(Build.VERSION.SDK_INT);
-        Field[] fields = Build.VERSION_CODES.class.getFields();
-        String osName = fields[Build.VERSION.SDK_INT].getName();
-        System.out.println("Android OsName: "+ osName);
-        System.out.println("========Build Details=========");
-
     }
 
     private void setUpButtons() {
