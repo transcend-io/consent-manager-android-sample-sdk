@@ -2,28 +2,10 @@ package io.transcend.samplesdk;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
-
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.FrameLayout;
-
-import com.google.gson.Gson;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import io.transcend.webview.IABConstants;
 import io.transcend.webview.TranscendAPI;
 import io.transcend.webview.TranscendConstants;
