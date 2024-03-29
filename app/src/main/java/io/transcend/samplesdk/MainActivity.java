@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpTranscendWebView() {
         // Note: Belongs to Managed Consent Database demo Org
-        String url = "https://transcend-cdn.com/cm/63b35d96-a6db-436f-a1cf-ea93ae4be24e/airgap.js";
+        String url = "https://cdn.transcend.io/cm-test/63b35d96-a6db-436f-a1cf-ea93ae4be24e/airgap.js";
         // Any additional domains you'd like to sync consent data to
         List<String> domainUrls = new ArrayList<>(Arrays.asList("https://example.com/"));
         // User token to sync Data
@@ -68,15 +68,15 @@ public class MainActivity extends AppCompatActivity {
         TranscendConfig config = new TranscendConfig.ConfigBuilder(url)
                 .domainUrls(domainUrls)
                 .defaultAttributes(agAttributes)
-                .token(token)
                 .destroyOnClose(false)
-                .autoShowUI(true)
+                .autoShowUI(false)
+                .mobileAppId("NYT")
                 .build();
         LinearLayout layout = (LinearLayout)findViewById(R.id.contentView);
         TranscendWebView transcendWebView = (TranscendWebView) findViewById(R.id.transcendWebView);
         // Set config for element defined on layout
         transcendWebView.setConfig(config);
-        transcendWebView.setOnCloseListener(consentDetails -> {
+        transcendWebView.setOnCloseListener((success, errorDetails, consentDetails) -> {
             System.out.println("In onCloseListener::" + consentDetails.isConfirmed());
             System.out.println("User Purposes::"+ consentDetails.getPurposes());
             layout.setVisibility(View.VISIBLE);
@@ -87,20 +87,17 @@ public class MainActivity extends AppCompatActivity {
         TranscendAPI.init(
                 getApplicationContext(),
                 config,
-                new TranscendListener.ViewListener() {
-                    @Override
-                    public void onViewReady() {
-                        try {
-                            System.out.println("Transcend Ready!!!!!!!");
-                            TranscendAPI.getConsent(getApplicationContext(), trackingConsentDetails -> {
-                                System.out.println("isConfirmed: " + trackingConsentDetails.isConfirmed());
-                                System.out.println("SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(TranscendConstants.TRANSCEND_CONSENT_DATA, "lol"));
-                                System.out.println("GDPR_APPLIES from SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(IABConstants.IAB_TCF_GDPR_APPLIES, 100));
-                                fetchRegimesAndHandleUI(transcendWebView, config, trackingConsentDetails);
-                            });
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
+                (success, errorDetails) -> {
+                    try {
+                        System.out.println("Transcend Ready!!!!!!!");
+                        TranscendAPI.getConsent(getApplicationContext(), trackingConsentDetails -> {
+                            System.out.println("isConfirmed: " + trackingConsentDetails.isConfirmed());
+                            System.out.println("SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(TranscendConstants.TRANSCEND_CONSENT_DATA, "lol"));
+                            System.out.println("GDPR_APPLIES from SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(IABConstants.IAB_TCF_GDPR_APPLIES, 100));
+                            fetchRegimesAndHandleUI(transcendWebView, config, trackingConsentDetails);
+                        });
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
                     }
                 }
         );
