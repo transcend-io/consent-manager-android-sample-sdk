@@ -8,18 +8,15 @@ import io.transcend.webview.TranscendAPI;
 import io.transcend.webview.TranscendConstants;
 import io.transcend.webview.TranscendListener;
 import io.transcend.webview.TranscendWebView;
+import io.transcend.webview.models.ConsentStatus;
 import io.transcend.webview.models.TrackingConsentDetails;
 import io.transcend.webview.models.TranscendConfig;
 import io.transcend.webview.models.TranscendCoreConfig;
-
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -79,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         transcendWebView.setOnCloseListener((success, errorDetails, consentDetails) -> {
             System.out.println("In onCloseListener::" + consentDetails.isConfirmed());
             System.out.println("User Purposes::"+ consentDetails.getPurposes());
+            getSdkConsentStatus();
             layout.setVisibility(View.VISIBLE);
         });
         transcendWebView.loadUrl();
@@ -118,6 +116,14 @@ public class MainActivity extends AppCompatActivity {
             });
         } catch (Exception e) {
             System.out.println("Found error on getRegimes()");
+        }
+    }
+
+    private void getSdkConsentStatus(){
+        try{
+            TranscendAPI.getSdkConsentStatus(getApplicationContext(), "appsflyer-android", consentStatus -> System.out.println(consentStatus.toString()));
+        } catch (Exception e) {
+            System.out.println("Found error on getServiceConsentStatus()");
         }
     }
 }
