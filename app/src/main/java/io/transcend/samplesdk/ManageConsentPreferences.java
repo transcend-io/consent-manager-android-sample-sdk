@@ -2,10 +2,12 @@ package io.transcend.samplesdk;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
 import io.transcend.webview.IABConstants;
 import io.transcend.webview.TranscendAPI;
 import io.transcend.webview.TranscendConstants;
