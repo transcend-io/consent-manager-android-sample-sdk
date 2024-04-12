@@ -59,7 +59,7 @@ fun BookingWebView() {
         WebView(context).apply {
             settings.javaScriptEnabled = true
             settings.domStorageEnabled = true
-            loadUrl("https://www.booking.com/")
+            loadUrl("https://transcend.io/")
         }
     })
 }
