@@ -26,7 +26,7 @@ import io.transcend.webview.TranscendWebView;
 import io.transcend.webview.models.TrackingConsentDetails;
 
 public class ManageConsentPreferences extends AppCompatActivity {
-//    FrameLayout webViewContainer;
+    //    FrameLayout webViewContainer;
     Context context;
 
     @Override

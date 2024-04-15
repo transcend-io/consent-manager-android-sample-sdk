@@ -10,6 +10,7 @@ import io.transcend.webview.TranscendListener;
 import io.transcend.webview.TranscendWebView;
 import io.transcend.webview.models.TrackingConsentDetails;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -64,63 +65,52 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpTranscendWebView() {
         // Note: Belongs to Managed Consent Database demo Org
-        String url = "https://transcend-cdn.com/cm/63b35d96-a6db-436f-a1cf-ea93ae4be24e/airgap.js";
+        String url = "https://transcend-cdn.com/cm-test/c7561f1c-7ec9-498c-a401-7219e3b36a8c/airgap.js";
         // Any additional domains you'd like to sync consent data to
         List<String> domainUrls = new ArrayList<>(Arrays.asList("https://example.com/"));
         TranscendWebView transcendWebView = (TranscendWebView) findViewById(R.id.transcendWebView);
-        LinearLayout layout = (LinearLayout)findViewById(R.id.contentView);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.contentView);
 
-        transcendWebView.setOnCloseListener(() -> {
-            new Handler(Looper.getMainLooper()).post(() -> {
-                layout.setVisibility(View.VISIBLE);
-                try {
-                    TranscendAPI.getConsent(getApplicationContext(), trackingConsentDetails -> {
-                        System.out.println("In onCloseListener::" + trackingConsentDetails.isConfirmed());
-                    });
-                }
-                catch (Exception ex){
-                    System.out.println("Exception");
-                }
-            });
-        });
+        transcendWebView.setOnCloseListener((success, errorDetails) -> new Handler(Looper.getMainLooper()).post(() -> {
+            layout.setVisibility(View.VISIBLE);
+            try {
+                TranscendAPI.getConsent(getApplicationContext(), trackingConsentDetails -> {
+                    System.out.println("In onCloseListener::" + trackingConsentDetails.isConfirmed());
+                });
+            } catch (Exception ex) {
+                System.out.println("Exception");
+            }
+        }));
 
-        TranscendAPI.init(
-                getApplicationContext(),
-                url,
-                domainUrls,
-                new TranscendListener.ViewListener() {
-                    @Override
-                    public void onViewReady() {
-                        try {
-                            transcendInitialized = true;
-                            System.out.println("Transcend Ready!!!!!!!");
-                            TranscendAPI.getConsent(getApplicationContext(), trackingConsentDetails -> {
-                                System.out.println("isConfirmed: " + trackingConsentDetails.isConfirmed());
-                                System.out.println("SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(TranscendConstants.TRANSCEND_CONSENT_DATA, "lol"));
-                                System.out.println("GDPR_APPLIES from SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(IABConstants.IAB_TCF_GDPR_APPLIES, 100));
+        TranscendAPI.init(getApplicationContext(), url, domainUrls, (success, errorDetails) -> {
+            try {
+                transcendInitialized = true;
+                System.out.println("Transcend Ready!!!!!!!");
+                TranscendAPI.getConsent(getApplicationContext(), trackingConsentDetails -> {
+                    System.out.println("isConfirmed: " + trackingConsentDetails.isConfirmed());
+                    System.out.println("SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(TranscendConstants.TRANSCEND_CONSENT_DATA, "lol"));
+                    System.out.println("GDPR_APPLIES from SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(IABConstants.IAB_TCF_GDPR_APPLIES, 100));
 
-                                try {
-                                    TranscendAPI.getRegimes(getApplicationContext(), regimes -> {
-                                        System.out.println("regimes: " + regimes.toString());
-                                        if (regimes.contains("gdpr") && !trackingConsentDetails.isConfirmed()) {
-                                            System.out.println("Requesting user consent...");
-                                            transcendWebView.setVisibility(View.VISIBLE);
-                                        } else {
-                                            transcendWebView.hideConsentManager();
-                                            LinearLayout contentView = findViewById(R.id.contentView);
-                                            contentView.setVisibility(View.VISIBLE);
-                                        }
-                                    });
-                                } catch (Exception e) {
-                                    System.out.println("Found error on getRegimes()");
-                                }
-                            });
-
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
+                    try {
+                        TranscendAPI.getRegimes(getApplicationContext(), regimes -> {
+                            System.out.println("regimes: " + regimes.toString());
+                            if (regimes.contains("gdpr") && !trackingConsentDetails.isConfirmed()) {
+                                System.out.println("Requesting user consent...");
+                                transcendWebView.setVisibility(View.VISIBLE);
+                            } else {
+                                transcendWebView.hideConsentManager();
+                                LinearLayout contentView = findViewById(R.id.contentView);
+                                contentView.setVisibility(View.VISIBLE);
+                            }
+                        });
+                    } catch (Exception e) {
+                        System.out.println("Found error on getRegimes()");
                     }
-                }
-        );
+                });
+
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }
