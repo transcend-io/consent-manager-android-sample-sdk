@@ -4,25 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.FrameLayout;
-
-import com.google.gson.Gson;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import io.transcend.webview.IABConstants;
 import io.transcend.webview.TranscendAPI;
@@ -47,12 +31,10 @@ public class ManageConsentPreferences extends AppCompatActivity {
         // Example: here I want to change the destroy on close behavior to false
         TranscendCoreConfig config = TranscendAPI.config.clone();
         config.setDestroyOnClose(false);
-        System.out.println(TranscendAPI.config.getDestroyOnClose());
         // Or could also directly use same config object created on MainActivity as follows
         // if no change needed
         // config = TranscendAPI.config;
         transcendWebView = (TranscendWebView) findViewById(R.id.transcendWebView);
-        System.out.println(transcendWebView);
         transcendWebView.setConfig(config);
         transcendWebView.loadUrl();
         setUpButtons();

@@ -1,6 +1,7 @@
 package io.transcend.samplesdk;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 
 import android.view.View;
@@ -31,7 +32,7 @@ public class HomeActivity extends AppCompatActivity {
                 ewv.evaluateJavascript(String.format("localStorage.getItem('%s')", TranscendConstants.STORAGE_TCF_KEY), System.out::println);
             }
         });
-        ewv.loadUrl("https://staging2.theathletic.com");
+        ewv.loadUrl("https://docs.transcend.io/docs/consent-management/mobile-consent/android");
         ewv.setVisibility(View.VISIBLE);
     }
 }
