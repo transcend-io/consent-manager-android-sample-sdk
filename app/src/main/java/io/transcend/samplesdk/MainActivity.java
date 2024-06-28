@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         Dialog webViewDialog = new Dialog(this);
         config.setAutoShowUI(false);
         // Note: Don't use this method when preference store is enabled
-        // Note: TimeStamp filed should be latest iso8601
+        // Note: TimeStamp field should be latest iso8601
         config.setDefaultConsent("{'purposes':{ 'Functional': false,'Advertising': false,'Analytics':false,'SaleOfInfo': false},'confirmed':true,'prompted':false,'timestamp':'2024-06-28T06:51:48.918Z','updated':false}");
         TranscendWebView transcendWebView = new TranscendWebView(webViewDialog.getContext(), config, ((success, errorDetails, consentDetails) -> {
             if (success) {
