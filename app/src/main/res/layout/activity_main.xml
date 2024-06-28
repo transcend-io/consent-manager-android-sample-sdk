@@ -7,11 +7,11 @@
     tools:context="io.transcend.samplesdk.MainActivity"
     android:orientation="vertical">
 
-    <io.transcend.webview.TranscendWebView
-        android:id="@+id/transcendWebView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"/>
+<!--    <io.transcend.webview.TranscendWebView-->
+<!--        android:id="@+id/transcendWebView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:visibility="gone"/>-->
 
     <View
         android:id="@+id/emptyView"
