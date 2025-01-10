@@ -54,17 +54,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpTranscendWebView() {
         // Note: Belongs to Managed Consent Database demo Org
-        String url = "https://transcend-cdn.com/cm-test/c7561f1c-7ec9-498c-a401-7219e3b36a8c/airgap.js";
+        String url = "https://transcend-cdn.com/cm/0016865d-822d-4574-8235-546152a5b53e/airgap.js";
         // Any additional domains you'd like to sync consent data to
-        List<String> domainUrls = new ArrayList<>(Arrays.asList("https://example.com/"));
+        // List<String> domainUrls = new ArrayList<>(Arrays.asList("https://www.hims.com/"));
         // User token to sync Data
-        String token = "eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJlbmNyeXB0ZWRJZGVudGlmaWVyIjoiK3dJWXk2SkdmcGxaUUZMWS9ETnQrTUNRS0dISENWckYiLCJpYXQiOjE3MDY5MTA2ODd9.d4zZoMPtriAPwC0HvJ6BqkOGdG_qcPjmRYNNkN_MfLvZDob1OzQcFUbfKFtFZKix";
+        // String token = "eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJlbmNyeXB0ZWRJZGVudGlmaWVyIjoiK3dJWXk2SkdmcGxaUUZMWS9ETnQrTUNRS0dISENWckYiLCJpYXQiOjE3MDY5MTA2ODd9.d4zZoMPtriAPwC0HvJ6BqkOGdG_qcPjmRYNNkN_MfLvZDob1OzQcFUbfKFtFZKix";
         // Specify any default airgap attributes
         Map<String, String> agAttributes = new HashMap<String, String>() {{
             // here
+            put("data-regime", "default");
         }};
+        //domainUrls(domainUrls)
         // Create config Object
-        TranscendConfig config = new TranscendConfig.ConfigBuilder(url).domainUrls(domainUrls).defaultAttributes(agAttributes).destroyOnClose(false).autoShowUI(false).mobileAppId("com.transcend.android").build();
+        TranscendConfig config = new TranscendConfig.ConfigBuilder(url).defaultAttributes(agAttributes).destroyOnClose(false).autoShowUI(false).mobileAppId("TextNow Android").viewState("CompleteOptionsToggles").build();
         LinearLayout layout = (LinearLayout) findViewById(R.id.contentView);
         TranscendWebView transcendWebView = (TranscendWebView) findViewById(R.id.transcendWebView);
         // Set config for element defined on layout

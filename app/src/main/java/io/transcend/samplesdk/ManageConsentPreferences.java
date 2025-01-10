@@ -48,7 +48,6 @@ public class ManageConsentPreferences extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 transcendWebView.setVisibility(View.VISIBLE);
-                transcendWebView.showConsentManager(null);
             }
         });
 
