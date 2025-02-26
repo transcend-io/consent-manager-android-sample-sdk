@@ -2,6 +2,9 @@ package com.example.transcenddemoapplication
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -19,10 +22,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.transcenddemoapplication.ui.theme.TranscendDemoApplicationTheme
 import io.transcend.webview.TranscendWebView
+import io.transcend.webview.TranscendWebViewClient
 
 class MainActivity : ComponentActivity() {
     private var isApiInstanceReady = mutableStateOf(false);
@@ -37,12 +42,12 @@ class MainActivity : ComponentActivity() {
                 // Success handler
                 isApiInstanceReady.value = true
 
-                TranscendApiWrapper.getConsent(applicationContext) { trackingConsentDetails ->
+                TranscendApiWrapper.getConsent(applicationContext, { trackingConsentDetails ->
                     // if user has already given consent isConfirmed is set to true
                     // so can avoid displaying the popup once again
                      isConsentConfirmed.value = trackingConsentDetails.isConfirmed
                     println("trackingConsentDetails received:" + trackingConsentDetails.purposes)
-                }
+                }, false)
             } else {
                 // Failure Handler
                 println("API init failed")
@@ -65,7 +70,7 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun consentBanner(showConsentBanner: Boolean, isConsentConfirmed: Boolean, onClose: (Boolean) -> Unit) {
+fun consentBanner(applicationContext: Context, showConsentBanner: Boolean, isConsentConfirmed: Boolean, onClose: (Boolean) -> Unit) {
     // you can use isConsentConfirmed to skip showing banner
     if(showConsentBanner) {
         // Use AndroidView to embed TranscendWebView in Compose
@@ -106,16 +111,16 @@ fun ShowButtons(applicationContext: Context, isConsentConfirmed: Boolean) {
         // Button to log consent
         Button(
             onClick = {
-                TranscendApiWrapper.getConsent(applicationContext) { trackingConsentDetails ->
+                TranscendApiWrapper.getConsent(applicationContext,{ trackingConsentDetails ->
                     println("trackingConsentDetails received:" + trackingConsentDetails.purposes)
-                }
+                }, true)
             },
         ) {
             Text("log My Consent")
         }
     }
 
-    consentBanner(showConsentBanner, isConsentConfirmed) { isClosed ->
+    consentBanner(applicationContext,showConsentBanner, isConsentConfirmed) { isClosed ->
         showConsentBanner = !isClosed
     }
 }

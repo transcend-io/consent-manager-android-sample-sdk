@@ -22,8 +22,9 @@ object TranscendApiWrapper {
             put("data-regime", "default")
         }
     }
-    val config = ConfigBuilder(AG_URL).defaultAttributes(agAttributes).destroyOnClose(false)
-        .autoShowUI(false).mobileAppId("TextNow Android")
+    private const val token = "eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJlbmNyeXB0ZWRJZGVudGlmaWVyIjoiYlZWaW05TXBqWWRESVVsaFM3dVF2dkhWYkcxMXFIejduZkZrM3l2X3d5ST0iLCJpYXQiOjE3Mzk4MTUzMjZ9.53haOFCAmB4pby1bT5v6Es5ILZH_UyctxZtBkXf6T0gq1icXbfvDn9aG8fwzKI0Y";
+    val config = ConfigBuilder(AG_URL).destroyOnClose(false)
+        .autoShowUI(false).mobileAppId("TextNow Android").token(token)
         .viewState("CompleteOptionsToggles").build()
 
     fun init(context: Context, callback: (Boolean) -> Unit) {
@@ -32,25 +33,25 @@ object TranscendApiWrapper {
                 if (success) {
                     try {
                         println("Transcend API Ready!!!!!!!")
-                        TranscendAPI.getConsent(context) { trackingConsentDetails ->
-                            println("isConfirmed: ${trackingConsentDetails.isConfirmed}")
-                            val sharedPreferences =
-                                PreferenceManager.getDefaultSharedPreferences(context)
-                            println(
-                                "SharedPreferences: ${
-                                    sharedPreferences.getString(
-                                        TranscendConstants.TRANSCEND_CONSENT_DATA, "lol"
-                                    )
-                                }"
-                            )
-                            println(
-                                "GDPR_APPLIES from SharedPreferences: ${
-                                    sharedPreferences.getInt(
-                                        IABConstants.IAB_TCF_GDPR_APPLIES, 100
-                                    )
-                                }"
-                            )
-                        }
+//                        TranscendAPI.getConsent(context) { trackingConsentDetails ->
+//                            println("isConfirmed: ${trackingConsentDetails.isConfirmed}")
+//                            val sharedPreferences =
+//                                PreferenceManager.getDefaultSharedPreferences(context)
+//                            println(
+//                                "SharedPreferences: ${
+//                                    sharedPreferences.getString(
+//                                        TranscendConstants.TRANSCEND_CONSENT_DATA, "lol"
+//                                    )
+//                                }"
+//                            )
+//                            println(
+//                                "GDPR_APPLIES from SharedPreferences: ${
+//                                    sharedPreferences.getInt(
+//                                        IABConstants.IAB_TCF_GDPR_APPLIES, 100
+//                                    )
+//                                }"
+//                            )
+//                        }
                         callback(true)
                     } catch (e: Exception) {
                         println(e.message)
@@ -87,12 +88,12 @@ object TranscendApiWrapper {
 
     // Function to get regimes with callback
     // Pass Application context
-    fun getConsent(context: Context, callback: (TrackingConsentDetails) -> Unit) {
+    fun getConsent(context: Context, callback: (TrackingConsentDetails) -> Unit, force: Boolean = false) {
         try {
             // Call getConsent function from TranscendAPI with the provided context
             TranscendAPI.getConsent(context, TranscendListener.ConsentListener {
                 callback(it)
-            })
+            }, force)
         } catch (ex: Exception) {
             // Handle exception
             Log.e("TranscendApiWrapper", "Error fetching consent", ex)
