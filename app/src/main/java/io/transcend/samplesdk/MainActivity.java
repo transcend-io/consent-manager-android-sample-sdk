@@ -93,6 +93,12 @@ public class MainActivity extends AppCompatActivity {
                         System.out.println("GDPR_APPLIES from SharedPreferences: " + PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(IABConstants.IAB_TCF_GDPR_APPLIES, 100));
                         fetchRegimesAndHandleUI(transcendWebView, config, trackingConsentDetails);
                     });
+                    TranscendAPI.getLoadOptions(getApplicationContext(), loadOptions -> {
+                        System.out.println("loadOptions: " + loadOptions);
+                    });
+                    TranscendAPI.getRegimePurposes(getApplicationContext(), regimePurposes -> {
+                        System.out.println("regimePurposes: " + regimePurposes);
+                    });
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
