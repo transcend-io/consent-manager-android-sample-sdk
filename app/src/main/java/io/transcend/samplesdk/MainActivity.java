@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         Map<String, String> agAttributes = new HashMap<String, String>() {{
             // here
         }};
+        agAttributes.put("data-regime", "LGPD");
         // Create config Object
         TranscendConfig config = new TranscendConfig.ConfigBuilder(url).domainUrls(domainUrls).defaultAttributes(agAttributes).destroyOnClose(false).autoShowUI(false).mobileAppId("com.transcend.android").build();
         LinearLayout layout = (LinearLayout) findViewById(R.id.contentView);

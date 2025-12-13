@@ -19,6 +19,7 @@ import io.transcend.webview.models.TranscendCoreConfig;
 public class ManageConsentPreferences extends AppCompatActivity {
     Context context;
     TranscendWebView transcendWebView;
+    View background;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +36,18 @@ public class ManageConsentPreferences extends AppCompatActivity {
         // if no change needed
         // config = TranscendAPI.config;
         transcendWebView = (TranscendWebView) findViewById(R.id.transcendWebView);
+        background = findViewById(R.id.overlayDim);
         transcendWebView.setConfig(config);
         transcendWebView.loadUrl();
         setUpButtons();
         context = this;
+        background.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                background.setVisibility(View.GONE);
+                transcendWebView.setVisibility(View.GONE);
+            }
+        });
     }
 
 
@@ -48,6 +57,7 @@ public class ManageConsentPreferences extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 transcendWebView.setVisibility(View.VISIBLE);
+                background.setVisibility(View.VISIBLE);
                 transcendWebView.showConsentManager(null);
             }
         });
